@@ -685,8 +685,8 @@ fetch('/chart_data')
                     datasets: [{
                         label: '', // Dataset label
                         data: chart8.values, // y-axis values
-                        backgroundColor: 'white',
-                        borderColor: 'white',
+                        backgroundColor: '#274a6a',
+                        borderColor: '#274a6a',
                         borderRadius: 5,
                         barThickness: 10
                     }]
@@ -707,11 +707,8 @@ fetch('/chart_data')
                               dash: [6, 6]
                             },
                             ticks: {
-                              color: 'white',
+                              color: 'black',
                             },
-                            grid: {
-                              color : 'white',
-                            }
                         },
                         x: {
                           grid: {
@@ -760,8 +757,8 @@ fetch('/chart_data')
                     datasets: [{
                         label: '', // Dataset label
                         data: chart9.values, // y-axis values
-                        backgroundColor: 'white',
-                        borderColor: 'white',
+                        backgroundColor: '#a2815e',
+                        borderColor: '#a2815e',
                         borderRadius: 5,
                         barThickness: 10
                     }]
@@ -782,11 +779,8 @@ fetch('/chart_data')
                               dash: [6, 6]
                             },
                             ticks: {
-                              color: 'white',
+                              color: 'black',
                             },
-                            grid: {
-                              color : 'white',
-                            }
                         },
                         x: {
                           grid: {
@@ -833,8 +827,8 @@ fetch('/chart_data')
                     datasets: [{
                         label: '', // Dataset label
                         data: chart10.values, // y-axis values
-                        backgroundColor: 'white',
-                        borderColor: 'white',
+                        backgroundColor: '#e45948',
+                        borderColor: '#e45948',
                         borderRadius: 5,
                         barThickness: 10
                     }]
@@ -863,11 +857,8 @@ fetch('/chart_data')
                               dash: [6, 6]
                             },
                             ticks: {
-                              color: 'white',
+                              color: 'black',
                             },
-                            grid: {
-                              color : 'white',
-                            }
                         },
                         x: {
                           grid: {
