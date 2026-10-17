@@ -31,6 +31,10 @@ def clean_json(value):
 def chart_data():
     return jsonify(global_data['chart_data'])
 
+@bp.route('/table_data')
+def table_data():
+    return jsonify(global_data['table_data'])
+
 
 @bp.route("/")
 def home():
