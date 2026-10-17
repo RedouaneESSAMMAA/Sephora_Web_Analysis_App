@@ -1,6 +1,5 @@
 .env
 .venv
-data
 Scripts
 reviews
 logs
