@@ -1,0 +1,42 @@
+<!-- Sidebar -->
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <i class="fas fa-chart-line"></i>
+        <span>Dashboard</span>
+    </div>
+    <nav class="sidebar-nav">
+        <ul>
+            <li>
+                <a href="/" class="{% if request.path == '/' %}active{% endif %}">
+                    <i class="fas fa-home"></i></i> Home
+                </a>
+            </li>
+            <li>
+                <a href="/tables" class="{% if request.path in ['/tables', '/tables/customers'] %}active{% endif %}">
+                    <i class="bi bi-table"></i> Tables
+                </a>
+            </li>
+            <li>
+                <a href="/analysis" class="{% if request.path == '/analysis' %}active{% endif %}">
+                    <i class="fas fa-chart-bar"></i> Analysis
+                </a>
+            </li>
+            <li>
+                <a href="/notifications" class="{% if request.path == '/notifications' %}active{% endif %}">
+                    <i class="bi bi-bell-fill"></i> Notifications
+                </a>
+            </li>
+        </ul>
+        <p class="sidebar-section-title">Account</p>
+        <ul>
+            <li>
+                <a href="/profile.html" class="{% if 'profile' in request.path %}active{% endif %}">
+                    <i class="fas fa-user"></i> Profile
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="sidebar-footer">
+        <button class="support-btn"><i class="bi bi-headset"></i> Support</button>
+    </div>
+</aside>

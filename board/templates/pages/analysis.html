@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <section class="analysis-row">
+            <div class="analysis-card">
+                <div id="new-old-rev" class="chart-canvas" style="width: 700px; height: 400px; margin: 0 auto;"></div>
+            </div>
+            <div class="analysis-card">
+                <div id="new-old-rat" class="chart-canvas" style="width: 700px; height: 400px; margin: 0 auto;"></div>
+            </div>
+        </section>
+
+        <section class="wordcloud-section">
+            <div class="wordcloud-card">
+                <img src="/static/wordcloud.png" alt="Wordcloud of customer review keywords">
+                <h6>Top Keywords in Customer Reviews</h6>
+            </div>
+        </section>
+    </div>
+{% endblock %}

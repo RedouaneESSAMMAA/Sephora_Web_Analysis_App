@@ -1,0 +1,301 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Sub navigation: Products | Customers tables -->
+    <div class="subnav">
+        <ul class="subnav-links">
+            <li><a href="/tables" class="subnav-link active">Products</a></li>
+            <li class="subnav-divider">|</li>
+            <li><a href="/tables/customers" class="subnav-link">Customers</a></li>
+        </ul>
+    </div>
+
+    <div class="container-fluid">
+        <!-- Category tables -->
+        <section class="tables-section">
+            <div class="table-card" id="category-1-table">
+                <div class="table-container">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Category type</th>
+                                <th scope="col">Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for category, count in zip(global_data['table_data']['tab_cat1']['labels'], global_data['table_data']['tab_cat1']['values']) %}
+                            <tr>
+                                <td>{{ category }}</td>
+                                <td>{{ count }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-card-body">
+                    <h6>Products by
+                        <abbr title="The Catgory type I is a group of several types of products as Makeup, Skincare, Frangrance, Hair, Bath & Body and Tolls & Brushes.">Category type I</abbr>
+                    </h6>
+                </div>
+            </div>
+
+            <div class="table-card" id="category-2-table">
+                <div class="table-container">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Category type</th>
+                                <th scope="col">Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for category, count in zip(global_data['table_data']['tab_cat2']['labels'], global_data['table_data']['tab_cat2']['values']) %}
+                            <tr>
+                                <td>{{ category }}</td>
+                                <td>{{ count }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-card-body">
+                    <h6>Products by
+                        <abbr title="The Catgory type II is a different definition of our products based on their use, like those used for Face, Lips, Eye,...">Category type II</abbr>
+                    </h6>
+                </div>
+            </div>
+
+            <div class="table-card" id="category-3-table">
+                <div class="table-container">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Category type</th>
+                                <th scope="col">Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for category, count in zip(global_data['table_data']['tab_cat3']['labels'], global_data['table_data']['tab_cat3']['values']) %}
+                            <tr>
+                                <td>{{ category }}</td>
+                                <td>{{ count }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-card-body">
+                    <h6>Products by
+                        <abbr title="The Catgory type III is another sight of defining our products, it includes Fondation, Concealer, Lipstick, Perfume,...">Category type III</abbr>
+                    </h6>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brand reviews by category -->
+        <section class="tables-section">
+            <div class="table-card">
+                <div class="table-container">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Brand</th>
+                                <th>Reviews</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for category, count in global_data['table_data']['tab_brand_cat1']['category_counts'].items() %}
+                                {% set start_idx = loop.index0 * count %}
+                                {% for idx in range(count) %}
+                                    <tr>
+                                        {% if idx == 0 %}
+                                            <td rowspan="{{ count }}" class="category">{{ category }}</td>
+                                        {% endif %}
+                                        <td>{{ global_data['table_data']['tab_brand_cat1']['labels2'][start_idx + idx] }}</td>
+                                        <td>{{ global_data['table_data']['tab_brand_cat1']['values'][start_idx + idx] }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-card-body">
+                    <h6>Products Reviews (top 10 brands) by
+                        <abbr title="The Catgory type I is a group of several types of products as Makeup, Skincare, Frangrance, Hair, Bath & Body and Tolls & Brushes.">Category type I</abbr>
+                    </h6>
+                </div>
+            </div>
+
+            <div class="table-card">
+                <div class="table-container">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Brand</th>
+                                <th>Reviews</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% set cumulative_count = namespace(value=0) %}
+                            {% for category, count in global_data['table_data']['tab_brand_cat2']['category_counts'].items() %}
+                                {% for idx in range(count) %}
+                                    <tr>
+                                        {% if idx == 0 %}
+                                            <td rowspan="{{ count }}" class="category">{{ category }}</td>
+                                        {% endif %}
+                                        <td>{{ global_data['table_data']['tab_brand_cat2']['labels2'][cumulative_count.value] }}</td>
+                                        <td>{{ global_data['table_data']['tab_brand_cat2']['values'][cumulative_count.value] }}</td>
+                                    </tr>
+                                    {% set cumulative_count.value = cumulative_count.value + 1 %}
+                                {% endfor %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-card-body">
+                    <h6>Products Reviews (top 10 brands) by
+                        <abbr title="The Catgory type II is a different definition of our products based on their use, like those used for Face, Lips, Eye,...">Category type II</abbr>
+                    </h6>
+                </div>
+            </div>
+
+            <div class="table-card">
+                <div class="table-container">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Brand</th>
+                                <th>Reviews</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% set cumulative_count = namespace(value=0) %}
+                            {% for category, count in global_data['table_data']['tab_brand_cat3']['category_counts'].items() %}
+                                {% for idx in range(count) %}
+                                    <tr>
+                                        {% if idx == 0 %}
+                                            <td rowspan="{{ count }}" class="category">{{ category }}</td>
+                                        {% endif %}
+                                        <td>{{ global_data['table_data']['tab_brand_cat3']['labels2'][cumulative_count.value] }}</td>
+                                        <td>{{ global_data['table_data']['tab_brand_cat3']['values'][cumulative_count.value] }}</td>
+                                    </tr>
+                                    {% set cumulative_count.value = cumulative_count.value + 1 %}
+                                {% endfor %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-card-body">
+                    <h6>Products Reviews (top 10 brands) by
+                        <abbr title="The Catgory type III is another sight of defining our products, it includes Fondation, Concealer, Lipstick, Perfume,...">Category type III</abbr>
+                    </h6>
+                </div>
+            </div>
+        </section>
+
+        <!-- Top brands tables -->
+        <section class="tables-section">
+            <div class="table-card" id="top-brand-1-table">
+                <div class="table-container">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Brand</th>
+                                <th scope="col">Products</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for brand, product in zip(global_data['table_data']['tab-top-brand1']['labels'], global_data['table_data']['tab-top-brand1']['values']) %}
+                            <tr>
+                                <td>{{ brand }}</td>
+                                <td>{{ product }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-card-body">
+                    <h6>Brands by Products</h6>
+                </div>
+            </div>
+
+            <div class="table-card" id="top-brand-2-table">
+                <div class="table-container">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Brand</th>
+                                <th scope="col">Reviews</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for brand, review in zip(global_data['table_data']['tab-top-brand2']['labels'], global_data['table_data']['tab-top-brand2']['values']) %}
+                            <tr>
+                                <td>{{ brand }}</td>
+                                <td>{{ review }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-card-body">
+                    <h6>Brands by Reviews</h6>
+                </div>
+            </div>
+
+            <div class="table-card" id="top-brand-3-table">
+                <div class="table-container">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Brand</th>
+                                <th scope="col">Price Median</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for brand, price in zip(global_data['table_data']['tab-top-price']['labels'], global_data['table_data']['tab-top-price']['values']) %}
+                            <tr>
+                                <td>{{ brand }}</td>
+                                <td>{{ "%.2f" % price }} $</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-card-body">
+                    <h6>Brands by Price Median</h6>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brand rating table -->
+        <section class="tables-section">
+            <div class="table-card" id="top-brand-rating-table">
+                <div class="table-container">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Brand</th>
+                                <th scope="col">Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for brand, rating in zip(global_data['table_data']['tab-top-rating']['labels'], global_data['table_data']['tab-top-rating']['values']) %}
+                            <tr>
+                                <td>{{ brand }}</td>
+                                <td>{{ rating }} <span class="star">&#9733;</span></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-card-body">
+                    <h6>Brands Rating</h6>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

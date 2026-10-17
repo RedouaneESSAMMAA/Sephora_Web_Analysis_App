@@ -1,0 +1,20 @@
+sephora_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "md:sephora_dev"
+      threads: 4
+      motherduck_token: "{{ env_var('MOTHERDUCK_TOKEN') }}"
+      attach:
+        - path: "md:sephora_analytics"
+          alias: sephora_analytics
+      
+    prod:
+      type: duckdb
+      path: "md:sephora_prod"
+      threads: 4
+      motherduck_token: "{{ env_var('MOTHERDUCK_TOKEN') }}"
+      attach:
+        - path: "md:sephora_analytics"
+          alias: sephora_analytics

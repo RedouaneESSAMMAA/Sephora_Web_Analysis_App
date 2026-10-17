@@ -1,0 +1,30 @@
+version: 2
+
+sources:
+  - name: raw
+    database: sephora_analytics
+    schema: raw
+    tables:
+      - name: raw_reviews
+        description: "Raw Sephora customer reviews"
+
+        columns:
+          - name: CID
+            tests:
+              - not_null
+          - name: ProdID
+            tests:
+              - not_null
+          - name: ISRecommended
+            tests:
+              - accepted_values:
+                  arguments:
+                    values: [true, false]
+          
+      - name: raw_products
+        description: "Raw Sephora product catalog"
+        
+        columns:
+          - name: skuId
+            tests:
+              - not_null

@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Sub navigation: Products | Customers tables -->
+    <div class="subnav">
+        <ul class="subnav-links">
+            <li><a href="/tables" class="subnav-link">Products</a></li>
+            <li class="subnav-divider">|</li>
+            <li><a href="/tables/customers" class="subnav-link active">Customers</a></li>
+        </ul>
+    </div>
+
+    <div class="container-fluid">
+        <section class="tables-section">
+            <div class="table-card" id="customer-table-1">
+                <div class="table-container">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Eye Color</th>
+                                <th scope="col">Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for index, (eyecolor, count) in enumerate(zip(global_data['table_data']['tab-customer-1']['labels'], global_data['table_data']['tab-customer-1']['values']), start=1) %}
+                            <tr>
+                                <td>
+                                {% if index == 3 %}
+                                    Undefined
+                                {% else %}
+                                    {{ eyecolor }}
+                                {% endif %}
+                                </td>
+                                <td>{{ count }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-card-body">
+                    <h6>Customers by
+                        <abbr title="Some customers prefered to not reveal their eye color, the reason why undefined category is prensent in the table.">Eye Color</abbr>
+                    </h6>
+                </div>
+            </div>
+
+            <div class="table-card" id="customer-table-2">
+                <div class="table-container">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Age</th>
+                                <th scope="col">Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for index, (age, count) in enumerate(zip(global_data['table_data']['tab-customer-2']['labels'], global_data['table_data']['tab-customer-2']['values']), start=1) %}
+                            <tr>
+                                <td>
+                                {% if index == 1 %}
+                                    Undefined
+                                {% else %}
+                                    {{ age }}
+                                {% endif %}
+                                </td>
+                                <td>{{ count }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-card-body">
+                    <h6>Customers by
+                        <abbr title="Some customers prefered to not reveal their age, the reason why undefined category is prensent in the table.">Age range</abbr>
+                    </h6>
+                </div>
+            </div>
+
+            <div class="table-card" id="customer-table-3">
+                <div class="table-container">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Hair Condition</th>
+                                <th scope="col">Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for index, (haircondition, count) in enumerate(zip(global_data['table_data']['tab-customer-3']['labels'], global_data['table_data']['tab-customer-3']['values']), start=1) %}
+                            <tr>
+                                <td>
+                                {% if index == 1 %}
+                                    Undefined
+                                {% else %}
+                                    {{ haircondition }}
+                                {% endif %}
+                                </td>
+                                <td>{{ count }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-card-body">
+                    <h6>Customers by
+                        <abbr title="Some customers prefered to not reveal their hair condition, the reason why undefined category is prensent in the table.">Hair Condition</abbr>
+                    </h6>
+                </div>
+            </div>
+        </section>
+
+        <section class="tables-section">
+            <div class="table-card" id="customer-table-4">
+                <div class="table-container">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Skin Tone</th>
+                                <th scope="col">Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for index, (skintone, count) in enumerate(zip(global_data['table_data']['tab-customer-4']['labels'], global_data['table_data']['tab-customer-4']['values']), start=1) %}
+                            <tr>
+                                <td>
+                                {% if index == 2 %}
+                                    Undefined
+                                {% else %}
+                                    {{ skintone }}
+                                {% endif %}
+                                </td>
+                                <td>{{ count }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-card-body">
+                    <h6>Customers by
+                        <abbr title="Some customers prefered to not reveal their skin tone, the reason why undefined category is prensent in the table.">Skin Tone</abbr>
+                    </h6>
+                </div>
+            </div>
+
+            <div class="table-card" id="customer-table-5">
+                <div class="table-container">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Skin Type</th>
+                                <th scope="col">Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for index, (skintype, count) in enumerate(zip(global_data['table_data']['tab-customer-5']['labels'], global_data['table_data']['tab-customer-5']['values']), start=1) %}
+                            <tr>
+                                <td>
+                                {% if index == 2 %}
+                                    Undefined
+                                {% else %}
+                                    {{ skintype }}
+                                {% endif %}
+                                </td>
+                                <td>{{ count }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-card-body">
+                    <h6>Customers by
+                        <abbr title="Some customers prefered to not reveal their skin type, the reason why undefined category is prensent in the table.">Skin Type</abbr>
+                    </h6>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

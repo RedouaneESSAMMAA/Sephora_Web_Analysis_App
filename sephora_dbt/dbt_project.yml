@@ -1,0 +1,26 @@
+name: 'sephora_dbt'
+version: '1.0.0'
+
+profile: 'sephora_dbt'
+
+
+analysis-paths: ["analyses"]
+model-paths: ["models"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+
+models:
+  sephora_dbt:
+    staging:
+      +schema: staging
+      +materialized: table
+    analytics:
+      +schema: analytics
+      +materialized: table

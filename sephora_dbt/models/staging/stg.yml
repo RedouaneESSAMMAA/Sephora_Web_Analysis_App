@@ -1,0 +1,37 @@
+version: 2
+
+sources:
+  - name: staging
+    database: sephora_dev
+    schema: staging
+    tables:
+
+      - name: stg_products
+        columns:
+          - name: skuId
+            tests:
+              - not_null
+    
+      - name: stg_reviews
+        columns:
+          - name: CID
+            tests:
+              - not_null
+          - name: eyeColor
+            tests:
+              - not_null
+          - name: age
+            tests:
+              - not_null
+          - name: hairColor
+            tests:
+              - not_null
+          - name: hairCondition
+            tests:
+              - not_null
+          - name: skinTone
+            tests:
+              - not_null
+          - name: skinType
+            tests:
+              - not_null

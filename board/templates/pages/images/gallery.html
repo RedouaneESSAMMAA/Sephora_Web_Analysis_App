@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <nav>
+    <a href="/">Home</a>
+    <a href="emoji">Emoji</a>
+  </nav>
+  <h1>{% block title %}Image gallery{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="gallery">
+      <img src="sky_1.png" alt="Cloudy sky." class="rounded">
+      <img src="sky_2.png" alt="Sun shining through a cloudy sky." class="rounded">
+      <img src="sky_3.png" alt="Sky with almost no clouds." class="rounded">
+    </div>
+{% endblock %}

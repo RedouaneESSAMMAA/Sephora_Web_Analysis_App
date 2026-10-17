@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- KPI Cards -->
+    <section class="stats-section">
+        <div class="stat-card">
+            <div class="stat-icon icon-pink">
+                <i class="bi bi-chat-dots-fill"></i>
+            </div>
+            <div class="stat-content">
+                <h3>Total Reviews</h3>
+                <p class="stat-number">{{ global_data['global_data']['total_reviews'] }}</p>
+                <p class="stat-change">Coming Soon...</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon icon-blue">
+                <i class="bi bi-bag-dash-fill"></i>
+            </div>
+            <div class="stat-content">
+                <h3>Total Products</h3>
+                <p class="stat-number">{{ global_data['global_data']['total_products'] }}</p>
+                <p class="stat-change">Coming Soon...</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon icon-teal">
+                <i class="bi bi-tags-fill"></i>
+            </div>
+            <div class="stat-content">
+                <h3>Total Brands</h3>
+                <p class="stat-number">3,462</p>
+                <p class="stat-change">Coming Soon...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category distribution charts -->
+    <section class="charts-section">
+        <div class="chart-card">
+            <div class="chart-canvas-wrap">
+                <div id="category1Chart" class="chart-canvas"></div>
+            </div>
+            <div class="chart-body">
+                <h2>Products Distribution</h2>
+                <p class="chart-subtitle">Distribution by
+                    <abbr title="The Catgory type I is a group of several types of products as Makeup, Skincare, Frangrance, Hair, Bath & Body and Tolls & Brushes.">Category type I</abbr>
+                </p>
+                <p class="chart-more">For more details check <a href="/tables#category-1-table">this</a>.</p>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-canvas-wrap">
+                <div id="category2Chart" class="chart-canvas"></div>
+            </div>
+            <div class="chart-body">
+                <h2>Products Distribution</h2>
+                <p class="chart-subtitle">Distribution by
+                    <abbr title="The Catgory type II is a different definition of our products based on their use, like those used for Face, Lips, Eye,...">Category type II</abbr>
+                </p>
+                <p class="chart-more">For more details check <a href="/tables#category-2-table">this</a>.</p>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-canvas-wrap">
+                <div id="category3Chart" class="chart-canvas"></div>
+            </div>
+            <div class="chart-body">
+                <h2>Products Distribution</h2>
+                <p class="chart-subtitle">Distribution by
+                    <abbr title="The Catgory type III is another sight of defining our products, it includes Fondation, Concealer, Lipstick, Perfume,...">Category type III</abbr>
+                </p>
+                <p class="chart-more">For more details check <a href="/tables#category-3-table">this</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top 5 reviews (doughnut) charts -->
+    <section class="charts-section">
+        <div class="chart-card">
+            <div class="chart-canvas-wrap">
+                <canvas id="donutCategory1" class="chart-canvas" style="border-radius: 150px;"></canvas>
+            </div>
+            <div class="chart-body">
+                <h2>Products Reviews (Top 5)</h2>
+                <p class="chart-subtitle">Reviews Distribution by
+                    <abbr title="The Catgory type I is a group of several types of products as Makeup, Skincare, Frangrance, Hair, Bath & Body and Tolls & Brushes.">Category type I</abbr>
+                </p>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-canvas-wrap">
+                <canvas id="donutCategory2" class="chart-canvas" style="border-radius: 150px;"></canvas>
+            </div>
+            <div class="chart-body">
+                <h2>Products Reviews (Top 5)</h2>
+                <p class="chart-subtitle">Reviews Distribution by
+                    <abbr title="The Catgory type II is a different definition of our products based on their use, like those used for Face, Lips, Eye,...">Category type II</abbr>
+                </p>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-canvas-wrap">
+                <canvas id="donutCategory3" class="chart-canvas" style="border-radius: 150px;"></canvas>
+            </div>
+            <div class="chart-body">
+                <h2>Products Reviews (Top 5)</h2>
+                <p class="chart-subtitle">Reviews Distribution by
+                    <abbr title="The Catgory type III is another sight of defining our products, it includes Fondation, Concealer, Lipstick, Perfume,...">Category type III</abbr>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top brands charts -->
+    <section class="charts-section">
+        <div class="chart-card">
+            <div class="chart-canvas-wrap">
+                <canvas id="brand-chart-1" class="chart-canvas"></canvas>
+            </div>
+            <div class="chart-body">
+                <h2>Top 10 Brands (Products)</h2>
+                <p class="chart-more">For more details check <a href="/tables">this</a>.</p>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-canvas-wrap">
+                <canvas id="brand-chart-2" class="chart-canvas"></canvas>
+            </div>
+            <div class="chart-body">
+                <h2>Top 10 Brands (Reviews)</h2>
+                <p class="chart-more">For more details check <a href="/tables">this</a>.</p>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-canvas-wrap">
+                <canvas id="brand-chart-3" class="chart-canvas"></canvas>
+            </div>
+            <div class="chart-body">
+                <h2>Top 10 Brands (Price Median)</h2>
+                <p class="chart-more">For more details check <a href="/tables">this</a>.</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}
