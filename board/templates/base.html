@@ -23,11 +23,8 @@
             <!-- Top navbar: navigate between pages -->
             <nav class="top-navbar">
                 <ul class="top-navbar-list">
-                    <li><a href="/" class="top-nav-link {% if request.path == '/' %}active{% endif %}"><i class="bi bi-columns-gap"></i> Overview</a></li>
-                    <li><a href="/tables" class="top-nav-link {% if request.path in ['/tables', '/tables/customers'] %}active{% endif %}"><i class="bi bi-table"></i> Tables</a></li>
+                    <li><a href="/" class="top-nav-link {% if request.path == '/' %}active{% endif %}"><i class="fa-solid fa-chart-pie"></i>Overview</a></li>
                     <li><a href="/customers" class="top-nav-link {% if request.path == '/customers' %}active{% endif %}"><i class="bi bi-people-fill"></i> Customers</a></li>
-                    <li><a href="/analysis" class="top-nav-link {% if request.path == '/analysis' %}active{% endif %}"><i class="bi bi-clipboard2-data-fill"></i> Analysis</a></li>
-                    <li><a href="/notifications" class="top-nav-link {% if request.path == '/notifications' %}active{% endif %}"><i class="bi bi-bell-fill"></i> Notifications</a></li>
                 </ul>
             </nav>
 

@@ -17,42 +17,45 @@ fetch('/chart_data')
         series: [{
         name: '',
         data: chart12.values
-      }],
+        }],
         chart: {
-        type: 'bar',
-        height: 360,
-        width: 450,
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: '25%',
-          borderRadius: 5,
-        //   borderRadiusApplication: 'end'
+          type: 'bar',
+          height: 350,
+          width: '100%',
+          toolbar: {
+              show: false
+          }
         },
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        show: true,
-        width: 2,
-        colors: ['transparent']
-      },
-      xaxis: {
-        categories: chart12.labels,
-      },
-      yaxis: {
-        labels: {
-            formatter: function (value) {
-                // Add space in thousands
-                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-            }
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '45%',
+            borderRadius: 5,
+          //   borderRadiusApplication: 'end'
+          },
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ['transparent']
+        },
+        xaxis: {
+          categories: chart12.labels,
+        },
+        yaxis: {
+          labels: {
+              formatter: function (value) {
+                  // Add space in thousands
+                  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+              }
+          }
+        },
+        fill: {
+          opacity: 1
         }
-      },
-      fill: {
-        opacity: 1
-      }
       };
     
       var chart = new ApexCharts(document.querySelector("#customer-chart1"), options);
@@ -95,55 +98,58 @@ fetch('/chart_data')
         series: [{
         name: '',
         data: chart13.values
-      }],
+        }],
         chart: {
         type: 'bar',
-        height: 360,
-        width: 450,
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: '25%',
-          borderRadius: 5,
-        //   borderRadiusApplication: 'end'
+        height: 350,
+        width: '100%',
+        toolbar: {
+            show: false
+        }
         },
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        show: true,
-        width: 2,
-        colors: ['transparent']
-      },
-      xaxis: {
-        categories: chart13.labels,
-        labels:{
-          formatter: function (value) {
-            // Add space in thousands
-            if (value.match(/^\d+to\d+$/)) {
-              return value.replace(/(\d+)(to)(\d+)/, '$1 to $3');
-            }
-            // Format 'over54' → 'over 54'
-            if (value.startsWith('over')) {
-              return value.replace(/over(\d+)/, 'over $1');
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '45%',
+            borderRadius: 5,
+          //   borderRadiusApplication: 'end'
+          },
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ['transparent']
+        },
+        xaxis: {
+          categories: chart13.labels,
+          labels:{
+            formatter: function (value) {
+              // Add space in thousands
+              if (value.match(/^\d+to\d+$/)) {
+                return value.replace(/(\d+)(to)(\d+)/, '$1 to $3');
+              }
+              // Format 'over54' → 'over 54'
+              if (value.startsWith('over')) {
+                return value.replace(/over(\d+)/, 'over $1');
+              }
             }
           }
-        }
-      },
-      yaxis: {
-        labels: {
-            formatter: function (value) {
-                // Add space in thousands
-                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-            }
-        }
-      },
-      fill: {
-        opacity: 1,
-        colors: 'green'
-      },
+        },
+        yaxis: {
+          labels: {
+              formatter: function (value) {
+                  // Add space in thousands
+                  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+              }
+          }
+        },
+        fill: {
+          opacity: 1,
+          colors: 'green'
+        },
       };
     
       var chart = new ApexCharts(document.querySelector("#customer-chart2"), options);
@@ -177,50 +183,53 @@ fetch('/chart_data')
         series: [{
         name: '',
         data: chart14.values
-      }],
+        }],
         chart: {
         type: 'bar',
-        height: 360,
-        width: 450,
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: '25%',
-          borderRadius: 5,
-        //   borderRadiusApplication: 'end'
+        height: 350,
+        width: '100%',
+        toolbar: {
+          show: false
+        }
         },
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        show: true,
-        width: 2,
-        colors: ['transparent']
-      },
-      xaxis: {
-        categories: chart14.labels,
-        labels: {
-            formatter: function (val) {
-              // Format "chemically Treated" to improve display
-              return val === "chemicallyTreated" ? "Chemically Treated" : val;
-            },
-            rotate: 0,
-        }
-      },
-      yaxis: {
-        labels: {
-            formatter: function (value) {
-                // Add space in thousands
-                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-            }
-        }
-      },
-      fill: {
-        opacity: 1,
-        colors: '#ff8400'
-      },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '45%',
+            borderRadius: 5,
+          //   borderRadiusApplication: 'end'
+          },
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ['transparent']
+        },
+        xaxis: {
+          categories: chart14.labels,
+          labels: {
+              formatter: function (val) {
+                // Format "chemically Treated" to improve display
+                return val === "chemicallyTreated" ? "Chemically Treated" : val;
+              },
+              rotate: 0,
+          }
+        },
+        yaxis: {
+          labels: {
+              formatter: function (value) {
+                  // Add space in thousands
+                  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+              }
+          }
+        },
+        fill: {
+          opacity: 1,
+          colors: '#ff8400'
+        },
       };
     
       var chart = new ApexCharts(document.querySelector("#customer-chart3"), options);
@@ -251,50 +260,53 @@ fetch('/chart_data')
         series: [{
         name: '',
         data: chart15.values
-      }],
+        }],
         chart: {
         type: 'bar',
-        height: 360,
-        width: 450,
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: '25%',
-          borderRadius: 5,
-        //   borderRadiusApplication: 'end'
-        },
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        show: true,
-        width: 2,
-        colors: ['transparent']
-      },
-      xaxis: {
-        categories: chart15.labels,
-        // labels: {
-        //     formatter: function (val) {
-        //       // Format "chemically Treated" to improve display
-        //       return val === "chemicallyTreated" ? "Chemically Treated" : val;
-        //     },
-        //     rotate: 0,
-        // }
-      },
-      yaxis: {
-        labels: {
-            formatter: function (value) {
-                // Add space in thousands
-                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-            }
+        height: 350,
+        width: '100%',
+        toolbar: {
+          show: false
         }
-      },
-      fill: {
-        opacity: 1,
-        colors: '#00879b'
-      },
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '45%',
+            borderRadius: 5,
+          //   borderRadiusApplication: 'end'
+          },
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ['transparent']
+        },
+        xaxis: {
+          categories: chart15.labels,
+          // labels: {
+          //     formatter: function (val) {
+          //       // Format "chemically Treated" to improve display
+          //       return val === "chemicallyTreated" ? "Chemically Treated" : val;
+          //     },
+          //     rotate: 0,
+          // }
+        },
+        yaxis: {
+          labels: {
+              formatter: function (value) {
+                  // Add space in thousands
+                  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+              }
+          }
+        },
+        fill: {
+          opacity: 1,
+          colors: '#00879b'
+        },
       };
     
       var chart = new ApexCharts(document.querySelector("#customer-chart4"), options);
@@ -319,50 +331,51 @@ fetch('/chart_data')
       // Get chart16 data
       const chart16 = chartData.chart16;
 
-      chart16.labels[1] = ["Undefined"];
-
       // Create the chart
       var options = {
         series: [{
         name: '',
         data: chart16.values
-      }],
+        }],
         chart: {
         type: 'bar',
-        height: 360,
-        width: 450,
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: '25%',
-          borderRadius: 5,
-        //   borderRadiusApplication: 'end'
-        },
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        show: true,
-        width: 2,
-        colors: ['transparent']
-      },
-      xaxis: {
-        categories: chart16.labels,
-      },
-      yaxis: {
-        labels: {
-            formatter: function (value) {
-                // Add space in thousands
-                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-            }
+        height: 350,
+        width: '100%',
+        toolbar: {
+            show: false
         }
-      },
-      fill: {
-        opacity: 1,
-        colors: '#701810'
-      },
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '45%',
+            borderRadius: 5,
+          //   borderRadiusApplication: 'end'
+          },
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ['transparent']
+        },
+        xaxis: {
+          categories: chart16.labels,
+        },
+        yaxis: {
+          labels: {
+              formatter: function (value) {
+                  // Add space in thousands
+                  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+              }
+          }
+        },
+        fill: {
+          opacity: 1,
+          colors: '#701810'
+        },
       };
     
       var chart = new ApexCharts(document.querySelector("#customer-chart5"), options);

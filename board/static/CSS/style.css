@@ -371,17 +371,20 @@ abbr {
 /* ============ CUSTOMER MINI CHARTS ============ */
 .charts-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 80px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
 }
 
 .mini-chart-card {
     background: white;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-    padding: 20px;
+    overflow: hidden;
     transition: all 0.3s ease;
-    width: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .mini-chart-card:hover {
@@ -391,7 +394,7 @@ abbr {
 .mini-chart-desc {
     display: flex;
     justify-content: center;
-    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .mini-chart-desc h6 {
