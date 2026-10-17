@@ -1070,25 +1070,25 @@ fetch('/chart_data')
                   </div>`;
       }
     },
-    colors: ['#5b394e', '#b9b0da', '#90b2c3', '#499ad7', '#248ede', '#3172c6', '#3368a3', '#274a6a', '#202f53', '#191b2c'], // Adjust the base color for heatmap
+    colors: ['#5b394e', '#b9b0da', '#90b2c3', '#499ad7', '#248ede', '#3172c6', '#3368a3', '#274a6a', '#202f53', '#191b2c'],
     plotOptions: {
-      heatmap: {
-          colorScale: {
-              ranges: [
-                  { from: 7577, to: 79863, color: '#5b394e' },
-                  { from: 79864, to: 152148, color: '#b9b0da' },
-                  { from: 152149, to: 224433, color: '#90b2c3' },
-                  { from: 224434, to: 296719, color: '#499ad7' },
-                  { from: 296720, to: 369004, color: '#248ede' },
-                  { from: 369005, to: 441290, color: '#3172c6' },
-                  { from: 441291, to: 513575, color: '#3368a3' },
-                  { from: 513576, to: 585861, color: '#274a6a' },
-                  { from: 585862, to: 658146, color: '#202f53' },
-                  { from: 658147, to: 730432, color: '#191b2c' }
-              ]
-          }
-      }
-  },
+        heatmap: {
+            colorScale: {
+            ranges: [
+                { from: 7577,   to: 79863,  color: '#1e3a8a', foreColor: '#ffffff' },
+                { from: 79863,  to: 152148, color: '#1e40af', foreColor: '#ffffff' },
+                { from: 152148, to: 224433, color: '#1d4ed8', foreColor: '#ffffff' },
+                { from: 224433, to: 296719, color: '#1e50c5', foreColor: '#ffffff' },
+                { from: 296719, to: 369004, color: '#1e5bb8', foreColor: '#ffffff' },
+                { from: 369004, to: 441290, color: '#1d4f91', foreColor: '#ffffff' },
+                { from: 441290, to: 513575, color: '#173f73', foreColor: '#ffffff' },
+                { from: 513575, to: 585861, color: '#12345b', foreColor: '#ffffff' },
+                { from: 585861, to: 658146, color: '#0f2947', foreColor: '#ffffff' },
+                { from: 658146, to: 730432, color: '#091a2e', foreColor: '#ffffff' }
+                ]
+            }
+        }
+    },
     title: {
         text: 'New vs Old Products by Reviews Heatmap',
         align: 'center'
@@ -1200,9 +1200,9 @@ fetch('/chart_data')
     },
     colors: ['#bdb9ab', '#b6966c', '#e45948', '#a2815e', '#8c694c', '#6c5d4f', '#4d3c30', '#383634', '#292827', '#050a0d'], // Adjust the base color for heatmap
     plotOptions: {
-      heatmap: {
-          colorScale: {
-              ranges: [
+        heatmap: {
+            colorScale: {
+            ranges: [
                   { from: 4.2, to: 4.28, color: '#bdb9ab' },
                   { from: 4.28, to: 4.36, color: '#b6966c' },
                   { from: 4.37, to: 4.44, color: '#e45948' },
@@ -1214,9 +1214,10 @@ fetch('/chart_data')
                   { from: 4.85, to: 4.92, color: '#292827' },
                   { from: 4.93, to: 5.0, color: '#050a0d' }
               ]
-          }
-      }
-  },
+            }
+        }
+    },
+
     title: {
         text: 'New vs Old Products by Rating Heatmap',
         align: 'center'

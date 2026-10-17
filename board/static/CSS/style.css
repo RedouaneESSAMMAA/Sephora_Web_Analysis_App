@@ -341,13 +341,13 @@ abbr {
 }
 
 .chart-body h2 {
-    font-size: 1.05rem;
+    font-size: 1.5rem;
     color: var(--dark);
     margin-bottom: 5px;
 }
 
 .chart-subtitle {
-    font-size: 0.85rem;
+    font-size: 1.0rem;
     color: #999;
 }
 
@@ -432,6 +432,7 @@ abbr {
     width: 100%;
     border-collapse: collapse;
     font-size: 0.9rem;
+    font-weight: bold;
 }
 
 .table-container table thead tr {
@@ -455,6 +456,17 @@ abbr {
     color: #444;
 }
 
+.table-container td:nth-child(2) {
+    text-align: center;
+}
+
+/* deactivate text align center for categories/brands tables */
+#table-brand1 td:nth-child(2),
+#table-brand2 td:nth-child(2),
+#table-brand3 td:nth-child(2) {
+  text-align: left;
+}
+
 .table-container tbody tr:nth-child(even) {
     background: #f3f3f3;
 }
@@ -476,9 +488,9 @@ abbr {
 }
 
 .table-card-body h6 {
-    font-size: 0.95rem;
+    font-size: 1.15rem;
     color: var(--dark);
-    font-weight: 600;
+    font-weight: bold;
 }
 
 .star {
