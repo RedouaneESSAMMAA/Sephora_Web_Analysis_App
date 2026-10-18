@@ -30,5 +30,5 @@ As a data engineer, I designed the project to bring together the main stages of 
 ├── app.py              # Flask application entry point
 ├── requirements.txt    # Python dependencies
 ├── board/              # Dashboard-related files
-├── data/               # Project data files
+├── data/               # Requesting data from motherduck database
 └── sephora\_dbt/        # dbt project
