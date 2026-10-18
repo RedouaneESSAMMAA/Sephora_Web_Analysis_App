@@ -59,3 +59,7 @@ def analysis():
 @bp.route('/notifications')
 def notifications():
     return render_template("pages/notifications.html", global_data=global_data, segment='notifications')
+
+@bp.route('/profile')
+def profile():
+    return render_template("pages/profile.html", global_data=global_data, segment='profile')

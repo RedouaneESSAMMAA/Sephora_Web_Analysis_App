@@ -17,14 +17,14 @@ try:
     # Fetch global metrics:
     metrics = con.sql("""
         SELECT
-            (SELECT COUNT(*) FROM sephora_dev.staging.stg_products
+            (SELECT COUNT(DISTINCT skuId) FROM sephora_dev.staging.stg_products
             WHERE skuId IS NOT NULL) AS total_products,
 
-            (SELECT COUNT(*) FROM sephora_dev.staging.stg_reviews
+            (SELECT COUNT(DISTINCT ReviewText) FROM sephora_dev.staging.stg_reviews
             WHERE CID IS NOT NULL) AS total_reviews,
 
-            (SELECT COUNT(DISTINCT brand) FROM sephora_dev.staging.stg_products)
-            AS total_brands
+            (SELECT COUNT(DISTINCT CID) FROM sephora_dev.staging.stg_reviews)
+            AS total_customers
     """).df().iloc[0]
 
     # Fetch each category distribution
@@ -299,7 +299,7 @@ try:
         'global_data' : {
             'total_products': "{:,d}".format(metrics['total_products']),
             'total_reviews': "{:,d}".format(metrics['total_reviews']),
-            'total_brands': "{:,d}".format(metrics['total_brands'])
+            'total_customers': "{:,d}".format(metrics['total_customers'])
         },
         'table_data' :{
             'tab_cat1':{

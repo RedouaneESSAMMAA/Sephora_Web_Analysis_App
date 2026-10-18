@@ -4,3 +4,5 @@ Scripts
 reviews
 logs
 infos
+generate_wordcloud.py
+src/sephora_wordcloud.png
