@@ -218,6 +218,13 @@ try:
             ORDER BY skinType
     """).df()
 
+    df_radar = con.sql("""
+            SELECT
+                *
+            FROM
+                sephora_dev.analytics.fct_client_segments_data
+    """).df()
+
     #heatmap1 data:
     df_heatmap1 = con.sql("""
         WITH brand_reviews AS (
@@ -493,7 +500,32 @@ try:
             'chart16':{
                 'labels': df_skin_type['skinType'].tolist(),
                 'values': df_skin_type['total'].tolist()
-            }
+            },
+            'chart17':{
+                'labels': df_radar.columns.tolist()[2:],
+                'values': df_radar[df_radar['segment'] == 'Frequent, highly satisfied reviewers'].values[0][2:].tolist(),
+                'segment': df_radar.segment.tolist(),
+                'counts' : df_radar.client_count[0].tolist()
+            },
+            'chart18':{
+                'labels': df_radar.columns.tolist()[2:],
+                'values': df_radar[df_radar['segment'] == 'Occasional or mixed reviewers'].values[0][2:].tolist(),
+                'segment': df_radar.segment.tolist(),
+                'counts' : df_radar.client_count[1].tolist()
+            },
+            'chart19':{
+                'labels': df_radar.columns.tolist()[2:],
+                'values': df_radar[df_radar['segment'] == 'Category-focused reviewers'].values[0][2:].tolist(),
+                'segment': df_radar.segment.tolist(),
+                'counts' : df_radar.client_count[2].tolist()
+
+            },
+            'chart20':{
+                'labels': df_radar.columns.tolist()[2:],
+                'values': df_radar[df_radar['segment'] == 'Frequent, critical reviewers'].values[0][2:].tolist(),
+                'segment': df_radar.segment.tolist(),
+                'counts' : df_radar.client_count[3].tolist()
+            },
         }
     }
 

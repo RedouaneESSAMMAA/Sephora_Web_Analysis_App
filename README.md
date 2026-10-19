@@ -10,7 +10,7 @@ Customer reviews can reveal patterns in product feedback, ratings, and customer 
 
 As a data engineer, I designed the project to bring together the main stages of an analytics workflow:
 
-1. **Data** — reviews and products data and stored in a database in `MotherDuck`
+1. **Data** — reviews and products data and stored in a database using `DuckDB`
 2. **Transformation and modeling** — the `sephora_dbt/` directory contains the dbt project.
 3. **Application** — `app.py` provides the Flask application entry point.
 4. **Dashboard assets** — the `board/` directory contains dashboard-related project files.
