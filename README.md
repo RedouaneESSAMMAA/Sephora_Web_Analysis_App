@@ -36,9 +36,9 @@ As a data engineer, I designed the project to bring together the main stages of 
 
 ## 📊 Sephora Analytics Dashboard
 
-An interactive dashboard built with Flask, Python, SQL, dbt, MotherDuck, and ApexCharts to explore Sephora products, customer reviews, ratings, and brand performance.
+![dash_overview](src\dash.png)
 
-- **Live Demo:** Coming soon
+- **Live Demo:** [Sephora Dashboard](`https://sephora-web-analysis-app-1.onrender.com`)
 - **Technologies:** Python, Flask, SQL, dbt, MotherDuck, JavaScript, ApexCharts
 - **Features:** Product analytics, customer insights, brand comparisons, and review analysis
 
