@@ -120,6 +120,8 @@ abbr {
 }
 
 .sidebar-footer {
+    position: relative;
+    overflow: visible;
     padding-top: 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -140,6 +142,51 @@ abbr {
     background-color: var(--pink);
     color: white;
 }
+
+/* Support popup */
+.support-panel {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 0;
+    width: 240px;
+    padding: 18px;
+    box-sizing: border-box;
+    background: #fff;
+    color: #333;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+}
+
+.support-panel.active {
+    display: block;
+}
+
+/* .support-panel h4 {
+    margin: 0 0 8px;
+    font-size: 15px;
+    color: #25212b;
+}
+
+.support-panel p {
+    margin: 0 0 12px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #666;
+}
+
+.support-panel a {
+    color: var(--pink);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.support-panel a:hover {
+    text-decoration: underline;
+} */
 
 /* ============ MAIN CONTENT ============ */
 .main-content {
@@ -164,13 +211,13 @@ abbr {
 
 .segment-toolbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     gap: 24px;
     flex-wrap: wrap;
 
     padding: 20px 24px;
-    margin: 0 0 28px;
+    margin: 0 auto 28px;
 
     background: #ffffff;
     border-radius: 14px;
@@ -473,6 +520,99 @@ abbr {
     flex-direction: column;
     gap: 10px;
 }
+
+
+.radar-heading {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 35px 0;
+  margin-bottom: 0;
+  text-align: center;
+  z-index: 100;
+  overflow: 100;
+}
+
+.radar-heading h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* Position the icon independently so the title stays centered */
+.radar-info-wrapper {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-10%);
+}
+
+.radar-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: #777;
+  cursor: help;
+}
+
+.radar-info svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.radar-info svg .info-dot {
+  fill: currentColor;
+  stroke: none;
+}
+
+.radar-info:hover,
+.radar-info:focus-visible {
+  color: #f5087a;
+  outline: none;
+}
+
+/* Description tooltip */
+.radar-description {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 9999;
+  width: 250px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #222;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.radar-info-wrapper:hover .radar-description,
+.radar-info-wrapper:focus-within .radar-description {
+  opacity: 1;
+  visibility: visible;
+}
+
 
 .mini-chart-card:hover {
     box-shadow: var(--shadow-hover);

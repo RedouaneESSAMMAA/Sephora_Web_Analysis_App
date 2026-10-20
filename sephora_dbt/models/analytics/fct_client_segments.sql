@@ -1,9 +1,9 @@
 SELECT
     *,
     CASE
-        WHEN review_count >= 3 AND avg_rating >= 4
+        WHEN review_count >= 2 AND avg_rating >= 4
             THEN 'Frequent, highly satisfied reviewers'
-        WHEN review_count >= 3 AND avg_rating <= 3
+        WHEN review_count >= 2 AND avg_rating <= 3
             THEN 'Frequent, critical reviewers'
         WHEN category_focus_pct >= 70
             THEN 'Category-focused reviewers'

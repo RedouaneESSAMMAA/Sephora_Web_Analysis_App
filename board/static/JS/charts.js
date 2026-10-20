@@ -984,487 +984,314 @@ fetch('/chart_data')
 // ]
 
 
-//////////////////////// Radar Charts ///////////////////////////////////
-/////////////// Radar Chart 1 //////////////////////////
-// Radar Chart cat1:
-fetch('/chart_data')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(chartData => {
-    const chart17 = chartData.chart17;
 
-    const options = {
-      series: [{
-        data: chart17.values
-      }],
-      chart: {
-        type: 'radar',
-        height: 600,
-        width: 700,
-        toolbar: {
-          show: false
-        }
+/* =========================================
+   1. RADAR CHART CONFIGURATION
+========================================= */
+
+const radarProfiles = [
+  {
+    elementId: 'radar1cat1',
+    dataKey: 'chart17',
+    color: 'rgb(153, 102, 255)',
+    title: 'Frequent, highly satisfied reviewers',
+    description:
+      'Customers who write at least 3 reviews and give an average rating of 4 or higher.'
+  },
+  {
+    elementId: 'radar2cat1',
+    dataKey: 'chart18',
+    color: '#f07167',
+    title: 'Occasional or mixed reviewers',
+    description:
+      'Customers whose review activity or average ratings do not meet the criteria for the other segments.'
+  },
+  {
+    elementId: 'radar3cat1',
+    dataKey: 'chart19',
+    color: '#386641',
+    title: 'Category-focused reviewers',
+    description:
+      'Customers who concentrate at least 70% of their reviews in a single product category.'
+  },
+  {
+    elementId: 'radar4cat1',
+    dataKey: 'chart20',
+    color: '#f5087a',
+    title: 'Frequent, critical reviewers',
+    description:
+      'Customers who write at least 3 reviews and give an average rating of 3 or lower.'
+  }
+];
+
+const radarDescriptions = {
+  client_share_pct: 'Number of reviewers',
+  review_activity: 'Review activity score',
+  satisfaction: 'Customer satisfaction',
+  recommendation_pct: 'Recommendation rate',
+  featured_product_pct: 'Featured product rate',
+  category_focus_pct: 'Category focus rate'
+};
+
+
+/* =========================================
+   2. CREATE TITLE AND INFORMATION TOOLTIP
+========================================= */
+
+function addRadarHeading(profile) {
+  const container = document.getElementById(profile.elementId);
+
+  if (!container) {
+    console.warn(`Container not found: #${profile.elementId}`);
+    return;
+  }
+
+  const card = container.closest('.analysis-card');
+
+  if (!card) {
+    console.warn(`.analysis-card not found for #${profile.elementId}`);
+    return;
+  }
+
+  // Prevent duplicate headings
+  if (card.querySelector('.radar-heading')) {
+    return;
+  }
+
+  const heading = document.createElement('div');
+  heading.className = 'radar-heading';
+
+  const title = document.createElement('h3');
+  title.textContent = profile.title;
+
+  const infoWrapper = document.createElement('div');
+  infoWrapper.className = 'radar-info-wrapper';
+
+  const infoButton = document.createElement('button');
+  infoButton.type = 'button';
+  infoButton.className = 'radar-info';
+  infoButton.setAttribute('aria-label', profile.description);
+  infoButton.setAttribute('aria-describedby',
+    `${profile.elementId}-description`);
+
+  // Circular information icon
+  infoButton.innerHTML = `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="9"></circle>
+      <path d="M12 11v5"></path>
+      <circle cx="12" cy="7.5" r="0.6" class="info-dot"></circle>
+    </svg>
+  `;
+
+  const description = document.createElement('div');
+  description.className = 'radar-description';
+  description.id = `${profile.elementId}-description`;
+  description.setAttribute('role', 'tooltip');
+  description.textContent = profile.description;
+
+  infoWrapper.append(infoButton, description);
+  heading.append(title, infoWrapper);
+
+  card.insertBefore(heading, container);
+}
+
+
+/* =========================================
+   3. RENDER ONE RADAR CHART
+========================================= */
+
+function renderRadarChart(profile, chartData) {
+  const container = document.getElementById(profile.elementId);
+
+  if (!container) {
+    console.warn(`Container not found: #${profile.elementId}`);
+    return;
+  }
+
+  if (
+    !chartData ||
+    !Array.isArray(chartData.labels) ||
+    !Array.isArray(chartData.values)
+  ) {
+    console.error(`Invalid data for ${profile.dataKey}:`, chartData);
+    return;
+  }
+
+  // Destroy an existing chart before recreating it
+  if (container._apexChart) {
+    container._apexChart.destroy();
+    container._apexChart = null;
+  }
+
+  const options = {
+    series: [
+      {
+        name: profile.title,
+        data: chartData.values
+      }
+    ],
+
+    chart: {
+      type: 'radar',
+      height: 400,
+      width: 600,
+      toolbar: {
+        show: false
       },
-      title: {
-        text: chart17.segment[0],
-        align: 'center',
-        offsetY: 20,
+      fontFamily: 'Poppins, sans-serif'
+    },
+
+    colors: [profile.color],
+
+    xaxis: {
+      categories: chartData.labels,
+      labels: {
         style: {
-            fontSize: '20px',      // Change font size
-            fontWeight: 'bold',
-        }
-      },
-      xaxis: {
-        categories: chart17.labels,
-        labels:{
-            style:{
-                fontSize: '15px',
-                fontWeight: 'bold',
-                colors: ['black', 'black', 'black', 'black', 'black', 'black']
-            }
-        }
-      },
-      yaxis: {
-        show: false
-      },
-      dataLabels: {
-        enabled: false
-      },
-      colors: ['rgb(153, 102, 255)'],
-      fill: {
-        opacity: 0.3
-      },
-      stroke: {
-        width: 2
-      },
-      markers: {
-        size: 3
-      },
-      legend: {
-        show: false
-      },
-      tooltip: {
-        custom: function({ series, seriesIndex, dataPointIndex}) {
-            const label = chart17.labels[dataPointIndex];
-            let value = series[seriesIndex][dataPointIndex];
-            
-            const descriptions = {
-                client_share_pct: 'Number of reviewers',
-                review_activity: 'Review activity score',
-                satisfaction: 'Customer satisfaction',
-                recommendation_pct: 'Recommendation rate',
-                featured_product_pct: 'Featured product rate',
-                category_focus_pct: 'Category focus rate'
-            };
-
-            // Replace the value for only one label
-            if (label === 'client_share_pct') {
-                value = chart17.counts;
-                // Format using en-US locale
-                const formattedValue = Number(value).toLocaleString('en-US', {
-                maximumFractionDigits: 2
-                });
-
-                return `
-                    <div class="radar-tooltip">
-                    <strong>${label}</strong>
-                    <div>${descriptions[label] || ''}</div>
-                    <div>Value: ${formattedValue}</div>
-                    </div>
-                `;
-            }
-            else{
-                // Format using en-US locale
-                const formattedValue = Number(value).toLocaleString('en-US', {
-                maximumFractionDigits: 2
-                });
-
-                return `
-                    <div class="radar-tooltip">
-                    <strong>${label}</strong>
-                    <div>${descriptions[label] || ''}</div>
-                    <div>Value: ${formattedValue}%</div>
-                    </div>
-                `;
-            }
-        }
-        }
-    };
-
-    const chart = new ApexCharts(
-      document.querySelector('#radar1cat1'),
-      options
-    );
-
-    chart.render();
-  })
-  .catch(error => {
-    console.error('Error rendering radar chart:', error);
-  });
-
-  // Radar Chart cat2:
-fetch('/chart_data')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(chartData => {
-    const chart18 = chartData.chart18;
-
-    const options = {
-      series: [{
-        data: chart18.values
-      }],
-      chart: {
-        type: 'radar',
-        height: 600,
-        width: 700,
-        toolbar: {
-          show: false
-        }
-      },
-      title: {
-        text: chart18.segment[1],
-        align: 'center',
-        offsetY: 20,
-        style: {
-            fontSize: '20px',      // Change font size
-            fontWeight: 'bold',
-        }
-      },
-      xaxis: {
-        categories: chart18.labels,
-        labels:{
-            style:{
-                fontSize: '15px',
-                fontWeight: 'bold',
-                colors: ['black', 'black', 'black', 'black', 'black', 'black']
-            }
-        }
-      },
-      yaxis: {
-        show: false
-      },
-      dataLabels: {
-        enabled: false
-      },
-      colors: ['#f07167'],
-      fill: {
-        opacity: 0.3
-      },
-      stroke: {
-        width: 2
-      },
-      markers: {
-        size: 3
-      },
-      legend: {
-        show: false
-      },
-      tooltip: {
-        custom: function({ series, seriesIndex, dataPointIndex}) {
-            const label = chart18.labels[dataPointIndex];
-            let value = series[seriesIndex][dataPointIndex];
-            
-            const descriptions = {
-                client_share_pct: 'Number of reviewers',
-                review_activity: 'Review activity score',
-                satisfaction: 'Customer satisfaction',
-                recommendation_pct: 'Recommendation rate',
-                featured_product_pct: 'Featured product rate',
-                category_focus_pct: 'Category focus rate'
-            };
-
-            // Replace the value for only one label
-            if (label === 'client_share_pct') {
-                value = chart18.counts;
-                // Format using en-US locale
-                const formattedValue = Number(value).toLocaleString('en-US', {
-                maximumFractionDigits: 2
-                });
-
-                return `
-                    <div class="radar-tooltip">
-                    <strong>${label}</strong>
-                    <div>${descriptions[label] || ''}</div>
-                    <div>Value: ${formattedValue}</div>
-                    </div>
-                `;
-            }
-            else{
-                // Format using en-US locale
-                const formattedValue = Number(value).toLocaleString('en-US', {
-                maximumFractionDigits: 2
-                });
-
-                return `
-                    <div class="radar-tooltip">
-                    <strong>${label}</strong>
-                    <div>${descriptions[label] || ''}</div>
-                    <div>Value: ${formattedValue}%</div>
-                    </div>
-                `;
-            }
-        }
-        }
-    };
-
-    const chart = new ApexCharts(
-      document.querySelector('#radar2cat1'),
-      options
-    );
-
-    chart.render();
-  })
-  .catch(error => {
-    console.error('Error rendering radar chart:', error);
-  });
-
-  // Radar Chart cat1:
-fetch('/chart_data')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(chartData => {
-    const chart19 = chartData.chart19;
-
-    const options = {
-      series: [{
-        data: chart19.values
-      }],
-      chart: {
-        type: 'radar',
-        height: 600,
-        width: 700,
-        toolbar: {
-          show: false
-        }
-      },
-      title: {
-        text: chart19.segment[2],
-        align: 'center',
-        offsetY: 20,
-        style: {
-            fontSize: '20px',      // Change font size
-            fontWeight: 'bold',
-        }
-      },
-      xaxis: {
-        categories: chart19.labels,
-        labels:{
-            style:{
-                fontSize: '15px',
-                fontWeight: 'bold',
-                colors: ['black', 'black', 'black', 'black', 'black', 'black']
-            }
-        }
-      },
-      yaxis: {
-        show: false
-      },
-      dataLabels: {
-        enabled: false
-      },
-      colors: ['#386641'],
-      fill: {
-        opacity: 0.3
-      },
-      stroke: {
-        width: 2
-      },
-      markers: {
-        size: 3
-      },
-      legend: {
-        show: false
-      },
-      tooltip: {
-        custom: function({ series, seriesIndex, dataPointIndex}) {
-            const label = chart19.labels[dataPointIndex];
-            let value = series[seriesIndex][dataPointIndex];
-            
-            const descriptions = {
-                client_share_pct: 'Number of reviewers',
-                review_activity: 'Review activity score',
-                satisfaction: 'Customer satisfaction',
-                recommendation_pct: 'Recommendation rate',
-                featured_product_pct: 'Featured product rate',
-                category_focus_pct: 'Category focus rate'
-            };
-
-            // Replace the value for only one label
-            if (label === 'client_share_pct') {
-                value = chart19.counts;
-                // Format using en-US locale
-                const formattedValue = Number(value).toLocaleString('en-US', {
-                maximumFractionDigits: 2
-                });
-
-                return `
-                    <div class="radar-tooltip">
-                    <strong>${label}</strong>
-                    <div>${descriptions[label] || ''}</div>
-                    <div>Value: ${formattedValue}</div>
-                    </div>
-                `;
-            }
-            else{
-                // Format using en-US locale
-                const formattedValue = Number(value).toLocaleString('en-US', {
-                maximumFractionDigits: 2
-                });
-
-                return `
-                    <div class="radar-tooltip">
-                    <strong>${label}</strong>
-                    <div>${descriptions[label] || ''}</div>
-                    <div>Value: ${formattedValue}%</div>
-                    </div>
-                `;
-            }
-        }
-        }
-    };
-
-    const chart = new ApexCharts(
-      document.querySelector('#radar3cat1'),
-      options
-    );
-
-    chart.render();
-  })
-  .catch(error => {
-    console.error('Error rendering radar chart:', error);
-  });
-
-  // Radar Chart cat1:
-fetch('/chart_data')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(chartData => {
-    const chart20 = chartData.chart20;
-
-    const options = {
-      series: [{
-        data: chart20.values
-      }],
-      chart: {
-        type: 'radar',
-        height: 600,
-        width: 700,
-        toolbar: {
-          show: false
-        }
-      },
-      title: {
-        text: chart20.segment[3],
-        align: 'center',
-        offsetY: 10,
-        style: {
-            fontSize: '20px',      // Change font size
-            fontWeight: 'bold',
-        }
-      },
-      xaxis: {
-        categories: chart20.labels,
-        labels:{
-            style:{
-                fontSize: '15px',
-                fontWeight: 'bold',
-                colors: ['black', 'black', 'black', 'black', 'black', 'black']
-            }
-        }
-      },
-      yaxis: {
-        show: false
-      },
-      dataLabels: {
-        enabled: false
-      },
-      fill: {
-        opacity: 0.3
-      },
-      stroke: {
-        width: 2
-      },
-      markers: {
-        size: 3
-      },
-      legend: {
-        show: false
-      },
-      tooltip: {
-        custom: function({ series, seriesIndex, dataPointIndex}) {
-            const label = chart20.labels[dataPointIndex];
-            let value = series[seriesIndex][dataPointIndex];
-            
-            const descriptions = {
-                client_share_pct: 'Number of reviewers',
-                review_activity: 'Review activity score',
-                satisfaction: 'Customer satisfaction',
-                recommendation_pct: 'Recommendation rate',
-                featured_product_pct: 'Featured product rate',
-                category_focus_pct: 'Category focus rate'
-            };
-
-            // Replace the value for only one label
-            if (label === 'client_share_pct') {
-                value = chart20.counts;
-                // Format using en-US locale
-                const formattedValue = Number(value).toLocaleString('en-US', {
-                maximumFractionDigits: 2
-                });
-
-                return `
-                    <div class="radar-tooltip">
-                    <strong>${label}</strong>
-                    <div>${descriptions[label] || ''}</div>
-                    <div>Value: ${formattedValue}</div>
-                    </div>
-                `;
-            }
-            else{
-                // Format using en-US locale
-                const formattedValue = Number(value).toLocaleString('en-US', {
-                maximumFractionDigits: 2
-                });
-
-                return `
-                    <div class="radar-tooltip">
-                    <strong>${label}</strong>
-                    <div>${descriptions[label] || ''}</div>
-                    <div>Value: ${formattedValue}%</div>
-                    </div>
-                `;
-            }
+          fontSize: '15px',
+          fontWeight: 'bold',
+          colors: chartData.labels.map(() => '#55505D')
         }
       }
+    },
+
+    yaxis: {
+      show: false,
+      min: 0,
+      max: 100
+    },
+
+    plotOptions: {
+      radar: {
+        size: 150,
+        polygons: {
+          strokeColors: '#EAE5ED',
+          connectorColors: '#EAE5ED',
+          fill: {
+            colors: ['#FFFFFF', '#FCF8FC']
+          }
+        }
+      }
+    },
+
+    fill: {
+      opacity: 0.3
+    },
+
+    stroke: {
+      width: 2.5
+    },
+
+    markers: {
+      size: 5,
+      colors: ['#FFFFFF'],
+      strokeColors: profile.color,
+      strokeWidth: 2,
+      hover: {
+        size: 7
+      }
+    },
+
+    dataLabels: {
+      enabled: false
+    },
+
+    legend: {
+      show: false
+    },
+
+    // Keep the custom tooltip attached to each radar data point
+    tooltip: {
+      enabled: true,
+      shared: false,
+
+      custom: function ({
+        series,
+        seriesIndex,
+        dataPointIndex
+      }) {
+        // Protect against invalid hover indexes
+        if (
+          dataPointIndex == null ||
+          dataPointIndex < 0 ||
+          !chartData.labels[dataPointIndex]
+        ) {
+          return '';
+        }
+
+        const label = chartData.labels[dataPointIndex];
+
+        let value = series[seriesIndex]?.[dataPointIndex];
+
+        // Show the actual reviewer count for this metric
+        if (label === 'client_share_pct') {
+          value = chartData.counts;
+        }
+
+        const numericValue = Number(value);
+
+        const formattedValue = Number.isFinite(numericValue)
+          ? numericValue.toLocaleString('en-US', {
+              maximumFractionDigits: 2
+            })
+          : 'N/A';
+
+        const isCount = label === 'client_share_pct';
+        const suffix = isCount ? '' : '%';
+
+        return `
+          <div class="radar-tooltip">
+            <strong>${label.replace(/_/g, ' ')}</strong>
+            <div>${radarDescriptions[label] || 'Metric value'}</div>
+            <div>Value: ${formattedValue}${suffix}</div>
+          </div>
+        `;
+      }
+    }
+  };
+
+  const chart = new ApexCharts(container, options);
+
+  container._apexChart = chart;
+
+  chart.render().catch(error => {
+    console.error(`Failed to render ${profile.dataKey}:`, error);
+  });
+}
+
+
+/* =========================================
+   4. FETCH DATA ONCE AND RENDER ALL CHARTS
+========================================= */
+
+async function initializeRadarCharts() {
+  try {
+    const response = await fetch('/chart_data');
+
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
     }
 
-    const chart = new ApexCharts(
-      document.querySelector('#radar4cat1'),
-      options
-    );
+    const chartData = await response.json();
 
+    radarProfiles.forEach(profile => {
+      const data = chartData[profile.dataKey];
 
-    chart.render();
-  })
-  .catch(error => {
-    console.error('Error rendering radar chart:', error);
-  });
+      if (!data) {
+        console.error(`Missing ${profile.dataKey} in /chart_data`);
+        return;
+      }
+
+      addRadarHeading(profile);
+      renderRadarChart(profile, data);
+    });
+
+  } catch (error) {
+    console.error('Error initializing radar charts:', error);
+  }
+}
+
+initializeRadarCharts();
+
 
 
 // // Handle dropdown change

@@ -21,22 +21,18 @@
                     <i class="fas fa-chart-bar"></i> Analysis
                 </a>
             </li>
-            <!-- <li>
-                <a href="/notifications" class="{% if request.path == '/notifications' %}active{% endif %}">
-                    <i class="bi bi-bell-fill"></i> Notifications
-                </a>
-            </li> -->
         </ul>
-        <!-- <p class="sidebar-section-title">Account</p> -->
-        <!-- <ul>
-            <li>
-                <a href="/profile" class="{% if 'profile' in request.path %}active{% endif %}">
-                    <i class="fas fa-user"></i> Profile
-                </a>
-            </li>
-        </ul> -->
     </nav>
+    
     <div class="sidebar-footer">
-        <button class="support-btn"><i class="bi bi-headset"></i> Support</button>
+        <button type="button" class="support-btn" id="supportBtn">
+            <i class="bi bi-headset"></i> Support
+        </button>
+
+        <div class="support-panel" id="supportPanel">
+            <h4>Need help?</h4>
+            <p>Contact us if you have any questions.</p>
+            <a style="font-style: italic;font-weight: bold;">essred4@gmail.com</a>
+        </div>
     </div>
 </aside>

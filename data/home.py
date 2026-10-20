@@ -505,26 +505,26 @@ try:
                 'labels': df_radar.columns.tolist()[2:],
                 'values': df_radar[df_radar['segment'] == 'Frequent, highly satisfied reviewers'].values[0][2:].tolist(),
                 'segment': df_radar.segment.tolist(),
-                'counts' : df_radar.client_count[0].tolist()
+                'counts' : df_radar[df_radar['segment'] == 'Frequent, highly satisfied reviewers'].client_count.tolist()
             },
             'chart18':{
                 'labels': df_radar.columns.tolist()[2:],
                 'values': df_radar[df_radar['segment'] == 'Occasional or mixed reviewers'].values[0][2:].tolist(),
                 'segment': df_radar.segment.tolist(),
-                'counts' : df_radar.client_count[1].tolist()
+                'counts' : df_radar[df_radar['segment'] == 'Occasional or mixed reviewers'].client_count.tolist()
             },
             'chart19':{
                 'labels': df_radar.columns.tolist()[2:],
                 'values': df_radar[df_radar['segment'] == 'Category-focused reviewers'].values[0][2:].tolist(),
                 'segment': df_radar.segment.tolist(),
-                'counts' : df_radar.client_count[2].tolist()
+                'counts' : df_radar[df_radar['segment'] == 'Category-focused reviewers'].client_count.tolist()
 
             },
             'chart20':{
                 'labels': df_radar.columns.tolist()[2:],
                 'values': df_radar[df_radar['segment'] == 'Frequent, critical reviewers'].values[0][2:].tolist(),
                 'segment': df_radar.segment.tolist(),
-                'counts' : df_radar.client_count[3].tolist()
+                'counts' : df_radar[df_radar['segment'] == 'Frequent, critical reviewers'].client_count.tolist()
             },
         }
     }
