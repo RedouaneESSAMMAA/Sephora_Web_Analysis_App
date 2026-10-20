@@ -985,6 +985,21 @@ fetch('/chart_data')
 
 
 
+
+/* =========================================
+   Charts Loader
+========================================= */
+
+
+function hideChartLoader(container) {
+    const card = container.closest('.analysis-card');
+
+    if (card) {
+        card.classList.add('is-loaded');
+    }
+}
+
+
 /* =========================================
    1. RADAR CHART CONFIGURATION
 ========================================= */
@@ -1250,17 +1265,29 @@ function renderRadarChart(profile, chartData) {
   };
 
   const chart = new ApexCharts(container, options);
-
   container._apexChart = chart;
 
-  chart.render().catch(error => {
-    console.error(`Failed to render ${profile.dataKey}:`, error);
+  chart.render()
+      .then(() => {
+          hideChartLoader(container);
+      })
+      .catch(error => {
+          console.error('Error rendering chart:', error);
   });
 }
 
+/* =========================================
+   4. Loaders Initializer
+========================================= */
+
+document.querySelectorAll('.analysis-card').forEach(card => {
+    if (card.querySelector('.chart-loader')) {
+        card.classList.remove('is-loaded');
+    }
+});
 
 /* =========================================
-   4. FETCH DATA ONCE AND RENDER ALL CHARTS
+   5. FETCH DATA ONCE AND RENDER ALL CHARTS
 ========================================= */
 
 async function initializeRadarCharts() {
