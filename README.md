@@ -4,7 +4,7 @@ A data analytics project that organizes Sephora review data and presents it thro
 
 ![project_architecture](src/project_architecture.png)
 
-## Project Overview
+## 📝 Project Overview
 
 Customer reviews can reveal patterns in product feedback, ratings, and customer sentiment. This project provides a foundation for exploring Sephora review data through a dashboard, with data-related project files organized separately from the web application.
 
@@ -16,14 +16,14 @@ As a data engineer, I designed the project to bring together the main stages of 
 4. **Dashboard assets** — the `board/` directory contains dashboard-related project files.
 
 
-## Project Goals
+## 🧩 Project Goals
 
 - Make Sephora reviews data easier to explore.
 - Present useful reviews insights in a web-based dashboard.
 - Solid Data modeling work from application code.
 - Demonstrate an end-to-end analytics project structure using Python, Flask, and dbt.
 
-## Repository Structure
+## 📂 Repository Structure
 
 ```text
 .
@@ -32,3 +32,20 @@ As a data engineer, I designed the project to bring together the main stages of 
 ├── board/              # Dashboard-related files
 ├── data/               # Requesting data from motherduck database
 └── sephora\_dbt/        # dbt project
+```
+
+## 📊 Sephora Analytics Dashboard
+
+An interactive dashboard built with Flask, Python, SQL, dbt, MotherDuck, and ApexCharts to explore Sephora products, customer reviews, ratings, and brand performance.
+
+- **Live Demo:** Coming soon
+- **Technologies:** Python, Flask, SQL, dbt, MotherDuck, JavaScript, ApexCharts
+- **Features:** Product analytics, customer insights, brand comparisons, and review analysis
+
+### Run Locally
+
+1. Clone this repository.
+2. Install the required dependencies.
+3. Configure your MotherDuck connection.
+4. Start the Flask application.
+5. Open `http://127.0.0.1:5000` in your browser.
