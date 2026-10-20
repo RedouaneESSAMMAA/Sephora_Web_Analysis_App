@@ -3,11 +3,17 @@
 {% block content %}
     <div class="container-fluid">
         <section class="analysis-row">
-            <div class="analysis-card">
-                <div id="new-old-rev" class="chart-canvas" style="width: 700px; height: 400px; margin: 0 auto;"></div>
-            </div>
-            <div class="analysis-card">
-                <div id="new-old-rat" class="chart-canvas" style="width: 700px; height: 400px; margin: 0 auto;"></div>
+            <div class="heatmaps-wrapper">
+                <div class="chart-loader" id="loader-heatmaps">
+                    <div class="spinner"></div>
+                    <p>Loading...</p>
+                </div>
+                <div class="analysis-card">
+                    <div id="new-old-rev" class="chart-canvas"></div>
+                </div>
+                <div class="analysis-card">
+                    <div id="new-old-rat" class="chart-canvas"></div>
+                </div>
             </div>
         </section>
         <section class="wordcloud-section">

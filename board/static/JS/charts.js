@@ -1342,258 +1342,202 @@ initializeRadarCharts();
 
 
 
+/* =================================
+   GROUPED: NEW VS OLD HEATMAPS
+================================= */
 
-// Heatmap reviews:
+function formatNumberWithSpace(number) {
+    return new Intl.NumberFormat('en-US', {
+        maximumFractionDigits: 2
+    }).format(number).replace(/,/g, ' ');
+}
 
-fetch('/chart_data')
-.then(response => {
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+// Shared function to prepare and render a heatmap
+function renderProductHeatmap(chartData, containerId, title, height, colorRanges) {
+    const container = document.querySelector(containerId);
+
+    if (!container || !chartData) {
+        console.error(`Missing container or data for ${containerId}`);
+        return;
     }
-    return response.json();
-})
-.then(chartData => {
-    console.log("Chart data fetched:", chartData);
 
-    // Get heatmap1 data
-    const heatmap1 = chartData.heatmap1;
+    const categories = chartData.brands;
 
-    const categories = heatmap1.brands;
-
-    const series = [
-      {
-          name: 'Old Products', // Column 1
-          data: heatmap1.data_old
-      },
-      {
-          name: 'New Products', // Column 2
-          data: heatmap1.data_new
-      }
-  ];
-
-    const heatmapSeries = series.map((col, colIndex) => {
-      return {
-          name: col.name,
-          data: col.data.map((value, rowIndex) => {
-              return {
-                  x: categories[rowIndex],
-                  y: value
-              };
-          })
-      };
-  });
-
-  // ApexCharts options
-  const options = {
-    chart: {
-        type: 'heatmap',
-        height: 400,
-        toolbar: {
-          show: false,
-        }
-    },
-    series: heatmapSeries,
-    dataLabels: {
-        enabled: true,
-        formatter: function(value) {
-          return formatNumberWithSpace(value);
-        }
-    },
-    legend: {
-      show: false
-    },
-    xaxis: {
-        type: 'category',
-        title: {
-            text: ''
+    const heatmapSeries = [
+        {
+            name: 'Old Products',
+            data: chartData.data_old.map((value, index) => ({
+                x: categories[index],
+                y: value
+            }))
         },
+        {
+            name: 'New Products',
+            data: chartData.data_new.map((value, index) => ({
+                x: categories[index],
+                y: value
+            }))
+        }
+    ];
+
+    const options = {
+        chart: {
+            type: 'heatmap',
+            height: height,
+            toolbar: {
+                show: false
+            },
+            fontFamily: 'Poppins, sans-serif'
+        },
+
+        series: heatmapSeries,
+
+        dataLabels: {
+            enabled: true,
+            formatter: function(value) {
+                return formatNumberWithSpace(value);
+            },
+            style: {
+                fontSize: '11px',
+                fontWeight: 500
+            }
+        },
+
+        legend: {
+            show: false
+        },
+
+        xaxis: {
+            type: 'category',
+            labels: {
+                rotate: -35
+            },
+            tooltip: {
+                enabled: false
+            }
+        },
+
+        yaxis: {
+            title: {
+                text: ''
+            }
+        },
+
         tooltip: {
-          enabled: false
+            enabled: true,
+            custom: function({ seriesIndex, dataPointIndex, w }) {
+                const point =
+                    w.config.series[seriesIndex].data[dataPointIndex];
+
+                if (!point) return '';
+
+                const productType =
+                    w.config.series[seriesIndex].name;
+
+                return `
+                    <div style="padding: 10px 12px;">
+                        <strong>${productType}</strong>
+                        <div>Brand: ${point.x}</div>
+                        <div>Value: ${formatNumberWithSpace(point.y)}</div>
+                    </div>
+                `;
+            }
         },
-        labels: {
-          rotate: -35
-        }
-    },
-    yaxis: {
+
+        plotOptions: {
+            heatmap: {
+                colorScale: {
+                    ranges: colorRanges
+                }
+            }
+        },
+
         title: {
-            text: ''
+            text: title,
+            align: 'center'
         }
-    },
-    tooltip: {
-      enabled: true,
-      custom: function({ series, seriesIndex, dataPointIndex, w }) {
-          return `<div">
-                    <strong>${w.config.series[seriesIndex].name}</strong>: ${formatNumberWithSpace(series[seriesIndex][dataPointIndex])}<br>
-                    <strong>Brand:</strong> ${w.globals.labels[dataPointIndex]}
-                  </div>`;
-      }
-    },
-    colors: ['#5b394e', '#b9b0da', '#90b2c3', '#499ad7', '#248ede', '#3172c6', '#3368a3', '#274a6a', '#202f53', '#191b2c'],
-    plotOptions: {
-        heatmap: {
-            colorScale: {
-            ranges: [
-                { from: 7577,   to: 79863,  color: '#1e3a8a', foreColor: '#ffffff' },
-                { from: 79863,  to: 152148, color: '#1e40af', foreColor: '#ffffff' },
-                { from: 152148, to: 224433, color: '#1d4ed8', foreColor: '#ffffff' },
-                { from: 224433, to: 296719, color: '#1e50c5', foreColor: '#ffffff' },
-                { from: 296719, to: 369004, color: '#1e5bb8', foreColor: '#ffffff' },
-                { from: 369004, to: 441290, color: '#1d4f91', foreColor: '#ffffff' },
-                { from: 441290, to: 513575, color: '#173f73', foreColor: '#ffffff' },
-                { from: 513575, to: 585861, color: '#12345b', foreColor: '#ffffff' },
-                { from: 585861, to: 658146, color: '#0f2947', foreColor: '#ffffff' },
+    };
+
+    
+  
+  const chart = new ApexCharts(container, options);
+
+  return chart.render();
+
+}
+
+const loader = document.getElementById('loader-heatmaps');
+const reviewsContainer = document.querySelector('#new-old-rev');
+const ratingContainer = document.querySelector('#new-old-rat');
+
+if (loader) {
+    loader.classList.remove('hidden');
+}
+
+if (reviewsContainer) reviewsContainer.dataset.loaded = 'false';
+if (ratingContainer) ratingContainer.dataset.loaded = 'false';
+
+
+// Fetch the data only once for both heatmaps
+fetch('/chart_data')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
+        }
+
+        return response.json();
+    })
+    .then(async chartData => {
+
+        // 1. Reviews heatmap
+        const reviewsPromise = renderProductHeatmap(
+            chartData.heatmap1,
+            '#new-old-rev',
+            'New vs Old Products by Reviews',
+            400,
+            [
+                { from: 7577,   to: 79862,  color: '#1e3a8a', foreColor: '#ffffff' },
+                { from: 79863,  to: 152147, color: '#1e40af', foreColor: '#ffffff' },
+                { from: 152148, to: 224432, color: '#1d4ed8', foreColor: '#ffffff' },
+                { from: 224433, to: 296718, color: '#1e50c5', foreColor: '#ffffff' },
+                { from: 296719, to: 369003, color: '#1e5bb8', foreColor: '#ffffff' },
+                { from: 369004, to: 441289, color: '#1d4f91', foreColor: '#ffffff' },
+                { from: 441290, to: 513574, color: '#173f73', foreColor: '#ffffff' },
+                { from: 513575, to: 585860, color: '#12345b', foreColor: '#ffffff' },
+                { from: 585861, to: 658145, color: '#0f2947', foreColor: '#ffffff' },
                 { from: 658146, to: 730432, color: '#091a2e', foreColor: '#ffffff' }
-                ]
-            }
+            ]
+        );
+
+        // 2. Rating heatmap
+        const ratingPromise = renderProductHeatmap(
+            chartData.heatmap2,
+            '#new-old-rat',
+            'New vs Old Products by Rating',
+            390,
+            [
+                { from: 4.20, to: 4.27, color: '#bdb9ab' },
+                { from: 4.28, to: 4.36, color: '#b6966c' },
+                { from: 4.37, to: 4.44, color: '#a99072' },
+                { from: 4.45, to: 4.52, color: '#a2815e' },
+                { from: 4.53, to: 4.60, color: '#8c694c' },
+                { from: 4.61, to: 4.68, color: '#6c5d4f' },
+                { from: 4.69, to: 4.76, color: '#4d3c30' },
+                { from: 4.77, to: 4.84, color: '#383634' },
+                { from: 4.85, to: 4.92, color: '#292827' },
+                { from: 4.93, to: 5.00, color: '#050a0d' }
+            ]
+        );
+        await Promise.all([reviewsPromise, ratingPromise]);
+
+        if (loader) {
+            loader.classList.add('hidden');
         }
-    },
-    title: {
-        text: 'New vs Old Products by Reviews Heatmap',
-        align: 'center'
-    }
-};
 
-
-// Function to format numbers with space as thousands separator
-function formatNumberWithSpace(number) {
-  return new Intl.NumberFormat('en-US').format(number).replace(/,/g, ' ');
-}
-
-// Render the heatmap
-const chart = new ApexCharts(document.querySelector("#new-old-rev"), options);
-chart.render();
-
-})
-
-.catch(error => {
-  console.error('Error fetching or rendering chart data:', error);
+        if (reviewsContainer) reviewsContainer.dataset.loaded = 'true';
+        if (ratingContainer) ratingContainer.dataset.loaded = 'true';
+    })
+    .catch(error => {
+        console.error('Error fetching or rendering heatmaps:', error);
 });
-
-
-// Heatmap rating:
-
-fetch('/chart_data')
-.then(response => {
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return response.json();
-})
-.then(chartData => {
-    console.log("Chart data fetched:", chartData);
-
-    // Get heatmap2 data
-    const heatmap2 = chartData.heatmap2;
-
-    const categories = heatmap2.brands;
-
-    const series = [
-      {
-          name: 'Old Products', // Column 1
-          data: heatmap2.data_old
-      },
-      {
-          name: 'New Products', // Column 2
-          data: heatmap2.data_new
-      }
-  ];
-
-    const heatmapSeries = series.map((col, colIndex) => {
-      return {
-          name: col.name,
-          data: col.data.map((value, rowIndex) => {
-              return {
-                  x: categories[rowIndex],
-                  y: value
-              };
-          })
-      };
-  });
-
-  // ApexCharts options
-  const options = {
-    chart: {
-        type: 'heatmap',
-        height: 390,
-        toolbar: {
-          show: false,
-        }
-    },
-    series: heatmapSeries,
-    dataLabels: {
-        enabled: true,
-        formatter: function(value) {
-          return formatNumberWithSpace(value);
-        }
-    },
-    legend: {
-      show: false
-    },
-    xaxis: {
-        type: 'category',
-        title: {
-            text: ''
-        },
-        tooltip: {
-          enabled: false
-        },
-        labels: {
-          rotate: -35
-        }
-    },
-    yaxis: {
-        title: {
-            text: ''
-        }
-    },
-    tooltip: {
-      enabled: true,
-      custom: function({ series, seriesIndex, dataPointIndex, w }) {
-          return `<div>
-                    <strong>${w.config.series[seriesIndex].name}</strong>: ${formatNumberWithSpace(series[seriesIndex][dataPointIndex])}<br>
-                    <strong>Brand:</strong> ${w.globals.labels[dataPointIndex]}
-                  </div>`;
-
-      }
-    },
-    colors: ['#bdb9ab', '#b6966c', '#e45948', '#a2815e', '#8c694c', '#6c5d4f', '#4d3c30', '#383634', '#292827', '#050a0d'], // Adjust the base color for heatmap
-    plotOptions: {
-        heatmap: {
-            colorScale: {
-            ranges: [
-                  { from: 4.2, to: 4.28, color: '#bdb9ab' },
-                  { from: 4.28, to: 4.36, color: '#b6966c' },
-                  { from: 4.37, to: 4.44, color: '#e45948' },
-                  { from: 4.45, to: 4.52, color: '#a2815e' },
-                  { from: 4.53, to: 4.6, color: '#8c694c' },
-                  { from: 4.61, to: 4.68, color: '#6c5d4f' },
-                  { from: 4.69, to: 4.76, color: '#4d3c30' },
-                  { from: 4.77, to: 4.84, color: '#383634' },
-                  { from: 4.85, to: 4.92, color: '#292827' },
-                  { from: 4.93, to: 5.0, color: '#050a0d' }
-              ]
-            }
-        }
-    },
-
-    title: {
-        text: 'New vs Old Products by Rating Heatmap',
-        align: 'center'
-    }
-};
-
-
-// Function to format numbers with space as thousands separator
-function formatNumberWithSpace(number) {
-  return new Intl.NumberFormat('en-US').format(number).replace(/,/g, ' ');
-}
-
-// Render the heatmap
-const chart = new ApexCharts(document.querySelector("#new-old-rat"), options);
-chart.render();
-
-})
-
-.catch(error => {
-  console.error('Error fetching or rendering chart data:', error);
-});
+  
