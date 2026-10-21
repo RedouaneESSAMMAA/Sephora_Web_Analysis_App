@@ -15,6 +15,8 @@
     --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
+
+
 * {
     margin: 0;
     padding: 0;
@@ -72,10 +74,23 @@ abbr {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.sidebar-header i {
+.sephora-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: var(--radius);
+}
+
+.sidebar-header span {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* .sidebar-header i {
     font-size: 1.8rem;
     color: var(--pink);
-}
+} */
 
 .sidebar-nav {
     flex: 1;
