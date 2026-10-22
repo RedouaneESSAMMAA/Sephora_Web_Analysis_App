@@ -38,7 +38,7 @@ As a data engineer, I designed the project to bring together the main stages of 
 
 ![dash_overview](src/dash.png)
 
-- **Live Demo:** [Sephora Dashboard](https://sephora-web-analysis-app-1.onrender.com)
+- **Live Demo:** [Sephora Dashboard](https://sephora-web-analysis-app-kg8y.onrender.com))
 - **Technologies:** Python, Flask, SQL, dbt, MotherDuck, JavaScript, ApexCharts
 - **Features:** Product analytics, customer insights, brand comparisons, and review analysis
 
