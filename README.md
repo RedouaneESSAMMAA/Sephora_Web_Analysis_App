@@ -36,7 +36,7 @@ As a data engineer, I designed the project to bring together the main stages of 
 
 ## 📊 Sephora Analytics Dashboard
 
-![dash_overview](src\dash.png)
+![dash_overview](src/dash.png)
 
 - **Live Demo:** [Sephora Dashboard](`https://sephora-web-analysis-app-1.onrender.com`)
 - **Technologies:** Python, Flask, SQL, dbt, MotherDuck, JavaScript, ApexCharts
