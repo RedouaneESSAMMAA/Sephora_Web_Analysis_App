@@ -1177,7 +1177,7 @@ function renderRadarChart(profile, chartData) {
 
     plotOptions: {
       radar: {
-        size: 150,
+        size: 110,
         polygons: {
           strokeColors: '#EAE5ED',
           connectorColors: '#EAE5ED',
